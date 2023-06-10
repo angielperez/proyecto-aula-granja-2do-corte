@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author andresito
+ * @author Angie Perez
  */
 public class Granja {
     

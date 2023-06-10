@@ -8,7 +8,7 @@ import static Gestion.VariablesGlobales.granja;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public class ReporteGestion {
     public void reporteCaja(){

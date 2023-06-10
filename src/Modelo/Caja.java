@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Caja implements IReportes{
 
@@ -14,6 +14,7 @@ public class Caja implements IReportes{
     private double totalCaja;
     private ArrayList<Gasto> gastos = new ArrayList();
     private ArrayList<Ingreso> ingresos = new ArrayList();
+    private ArrayList<Venta> ventas = new ArrayList();
     
     public Caja() {
     }   
@@ -24,6 +25,7 @@ public class Caja implements IReportes{
         this.totalCaja = totalCaja;
         this.ingresos = new ArrayList();
         this.gastos = new ArrayList();
+        this.ventas= new ArrayList();
     }
 
     public double getTotalIngresos() {
@@ -44,6 +46,10 @@ public class Caja implements IReportes{
 
     public ArrayList<Ingreso> getIngresos() {
         return ingresos;
+    }
+    
+    public ArrayList<Venta> getVentas() {
+        return ventas;
     }
 
     public void setTotalIngresos(double totalIngresos) {
@@ -66,6 +72,10 @@ public class Caja implements IReportes{
         this.ingresos = ingresos;
     }    
 
+     public void setVentas(ArrayList<Venta> ventas) {
+        this.ventas = ventas;
+    }  
+     
     @Override
     public void mostrarReportes() {
         System.out.println("---------------------------------------------");

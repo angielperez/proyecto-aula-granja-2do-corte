@@ -6,7 +6,7 @@ package Interfaces;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public interface IReportes {
     void mostrarReportes();

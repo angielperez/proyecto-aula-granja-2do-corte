@@ -6,90 +6,60 @@ package Gestion;
 
 import static Gestion.VariablesGlobales.granja;
 import Interfaces.IGestion;
+import Interfaces.IGestionAccionistas;
 import Modelo.Accionista;
 import Modelo.Direccion;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
-public class AccionistaGestion implements IGestion{
+public class AccionistaGestion implements IGestionAccionistas{
 
+    ArrayList<Accionista> lista = VariablesGlobales.datosAccionistas.Cargar();
+    
     @Override
-    public String guardar() {
-        Scanner teclado = new Scanner(System.in);
-        Accionista accionista = new Accionista();
-        Direccion direccion = new Direccion();
-        System.out.print("Digite la identificacion: "); 
-        accionista.setId(teclado.nextLine());
-        System.out.print("Digite el nombre: "); 
-        accionista.setNombre(teclado.nextLine());
-        System.out.print("Digite el pais:");
-        direccion.setPais(teclado.nextLine());
-        System.out.print("Digite la ciudad:");
-        direccion.setCiudad(teclado.nextLine());
-        System.out.print("Digite la nomenclatura:");
-        direccion.setNomenclatura(teclado.nextLine());
-
-        System.out.print("Digite la inversion:");
-        accionista.setInversion(teclado.nextDouble());
-        granja.getAccionistas().add(accionista);
-
-        return "Se registro exitosamente";
+    public String guardar(Accionista nuevo) {
+        Accionista busqueda = buscar(nuevo.getId());
+        if(busqueda != null){
+            return "La Identificacion ya existe";
+        }
+        
+        
+        lista.add(nuevo);
+        return VariablesGlobales.datosAccionistas.Guardar(lista);
     }
     
-
     @Override
-    public String actualizar() {
-        Scanner teclado = new Scanner(System.in);
-        String id;
-        System.out.println("Por seguridad, digite la identificacion");
-        id = teclado.nextLine();
+    public String actualizar(String id, Accionista nuevo) {
         int posicionBusqueda = buscarObtenerPosicion(id);
         if(posicionBusqueda == -1){
             return "El accionista no existe";
-        }else{
-            Accionista accionista = new Accionista();
-            Direccion direccion = new Direccion();
-            System.out.print("Digite la identificacion: "); 
-            accionista.setId(teclado.nextLine());
-            System.out.print("Digite el nombre: "); 
-            accionista.setNombre(teclado.nextLine());
-            System.out.print("Digite el pais:");
-            direccion.setPais(teclado.nextLine());
-            System.out.print("Digite la ciudad:");
-            direccion.setCiudad(teclado.nextLine());
-            System.out.print("Digite la nomenclatura:");
-            direccion.setNomenclatura(teclado.nextLine());
-
-            System.out.print("Digite la inversion:");
-            accionista.setInversion(teclado.nextDouble());
-            
-            granja.getAccionistas().set(posicionBusqueda, accionista);
-            return "Se actualizo exitosamente";
+        }else{            
+            lista.set(posicionBusqueda, nuevo);
+            return VariablesGlobales.datosAccionistas.Guardar(lista);
         }
     }
-
     @Override
-    public void imprimir() {
-        for (int i = 0; i < granja.getAccionistas().size(); i++) {
-            Accionista accionista = granja.getAccionistas().get(i);
-            System.out.println("-----------------------------------------------------");
-            System.out.println("Identificacion: "+ accionista.getId());
-            System.out.println("Nombre: "+ accionista.getNombre());
-            System.out.println("Pais: "+ accionista.getDireccion().getPais());
-            System.out.println("Ciudad: "+ accionista.getDireccion().getCiudad());
-            System.out.println("Nomenclatura: "+ accionista.getDireccion().getNomenclatura());
-            System.out.println("Inversion: "+ accionista.getInversion());
-            System.out.println("-----------------------------------------------------");
+    public String eliminar(String id){
+        int pos = buscarObtenerPosicion(id);
+        if(pos == -1){
+            return "El accionista no existe";
+        }else{
+            lista.remove(pos);
+            String respuesta = VariablesGlobales.datosAccionistas.Guardar(lista);
+            if(respuesta.equals("OK")){
+                return "Eliminado exitosamente";
+            }
+            return respuesta;
         }
-        
     }
-    
-    public static Accionista buscar(String id){
-        for (int i = 0; i < granja.getAccionistas().size(); i++) {
-            Accionista accionista = granja.getAccionistas().get(i);
+    @Override
+    public Accionista buscar(String id){
+        for (int i = 0; i < lista.size(); i++) {
+            Accionista accionista = lista.get(i);
             if(accionista.getId().equals(id)){
                 return accionista;
             }
@@ -97,9 +67,9 @@ public class AccionistaGestion implements IGestion{
         return null;
     }
     
-    public static int buscarObtenerPosicion(String id){
-        for (int i = 0; i < granja.getAccionistas().size(); i++) {
-            Accionista accionista = granja.getAccionistas().get(i);
+    public int buscarObtenerPosicion(String id){
+        for (int i = 0; i < lista.size(); i++) {
+            Accionista accionista = lista.get(i);
             if(accionista.getId().equals(id)){
                 return i;
             }

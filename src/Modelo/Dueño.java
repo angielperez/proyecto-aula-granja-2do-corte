@@ -2,11 +2,11 @@ package Modelo;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Dueño extends Persona{
 
-    private Cuenta cuenta;
+    private Cuenta cuenta = new Cuenta();
     
     public Dueño() {
     }

@@ -13,7 +13,8 @@ import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author  Angie Perez
+
  */
 public class DueñoGestion implements IGestion{
 

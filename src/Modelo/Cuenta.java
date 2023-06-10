@@ -2,7 +2,7 @@ package Modelo;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Cuenta {
     

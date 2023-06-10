@@ -5,56 +5,34 @@
 package Gestion;
 
 import static Gestion.VariablesGlobales.granja;
-import Interfaces.IGestion;
+
+import Interfaces.IGestionAlimentacion;
 import Modelo.Alimentacion;
 import Modelo.Gallina;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
-public class AlimentacionGestion implements IGestion{
-
+public class AlimentacionGestion implements IGestionAlimentacion{
+private GallinaGestion gallinaGestion = new GallinaGestion();
+    
     @Override
-    public String guardar() {
-        Scanner teclado = new Scanner(System.in);
-        String cod;
-        System.out.println("Digite el código de la gallina: ");
-        cod = teclado.nextLine();
-        for (int i = 0; i < granja.getGallinas().size(); i++){
-            Gallina gallina = granja.getGallinas().get(i);
-            if (cod.equals(gallina.getCodigo())){
-                System.out.println("Digite la cantidad de alimento suministrado(gr): ");
-                Alimentacion alimentacion = new Alimentacion ();
-                alimentacion.setCantidadAlimiento(teclado.nextDouble());
-                alimentacion.setFecha(LocalDate.now());
-                gallina.getAlimentaciones().add(alimentacion);
-                granja.getInventario().setTotalAlimentacionSuministrada(granja.getInventario().getTotalAlimentacionSuministrada()+alimentacion.getCantidadAlimiento());
-                System.out.println("Alimentacion registrada exitosamente");
-            }
-        }
-        return "La gallina no existe";
+    public String guardar(Alimentacion nuevo, String codigoGallina) {
+        Gallina gallina = gallinaGestion.buscar(codigoGallina);
+        ArrayList<Alimentacion> alimentaciones = gallina.getAlimentaciones();
+        alimentaciones.add(nuevo);
+        return VariablesGlobales.datosAlimentaciones.Guardar(alimentaciones, codigoGallina);
     }
 
     @Override
-    public String actualizar() {
-        return "Opcion no disponible";
-    }
-
-    @Override
-    public void imprimir() {
-        for (int i = 0; i < granja.getGallinas().size(); i++) {
-            Gallina gallina = granja.getGallinas().get(i);
-            System.out.println("------------------------------------------------"); 
-            System.out.println("Gallina #"+ gallina.getCodigo());
-            for (int j = 0; j < gallina.getAlimentaciones().size(); j++) {
-                Alimentacion alimentacion = gallina.getAlimentaciones().get(j);
-                System.out.println("Cantidad de alimento:" + alimentacion.getCantidadAlimiento());
-                System.out.println("Fecha de alimentacion:" + alimentacion.getFecha());
-                System.out.println("------------------------------------------------"); 
-            }
-        }
-    }
+    public ArrayList<Alimentacion> buscar(String codigoGallina) {
+        return VariablesGlobales.datosAlimentaciones.Cargar(codigoGallina);
+    }    
 }
+
+
+   

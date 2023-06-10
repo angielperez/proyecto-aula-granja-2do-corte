@@ -9,14 +9,14 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public class MovimientoCaja implements IReportes {
     private String codigo;
     private double valor;
     private String descripcion;
     private LocalDate fecha;
-    private String estado;
+   
 
     public MovimientoCaja() {
     }
@@ -76,13 +76,6 @@ public class MovimientoCaja implements IReportes {
         this.fecha = fecha;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
     @Override
     public void mostrarReportes() {
@@ -91,7 +84,6 @@ public class MovimientoCaja implements IReportes {
         System.out.println("Descripcion: "+ this.descripcion);
         System.out.println("Valor: "+ this.valor);
         System.out.println("Fecha: "+ this.fecha.toString());
-        System.out.println("Estado: "+ this.estado);
         System.out.println("---------------------------------------------");
     }
     

@@ -5,56 +5,31 @@
 package Gestion;
 
 import static Gestion.VariablesGlobales.granja;
-import Interfaces.IGestion;
+import Interfaces.IGestionProduccion;
 import Modelo.Gallina;
 import Modelo.Produccion;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
-public class ProduccionGestion implements IGestion{
+public class ProduccionGestion implements IGestionProduccion{
 
-    @Override
-    public String guardar() {
-        Scanner teclado = new Scanner(System.in);
-        String cod;
-        System.out.println("Digite el código de la gallina: ");
-        cod = teclado.nextLine();
-        for (int i = 0; i < granja.getGallinas().size(); i++){
-            Gallina gallina = granja.getGallinas().get(i);
-            if (cod.equals(gallina.getCodigo())){
-                System.out.println("Digite la cantidad de huevos: ");
-                Produccion produccion = new Produccion ();
-                produccion.setCantidadHuevos(teclado.nextInt());
-                produccion.setFecha(LocalDate.now());
-                gallina.getProducciones().add(produccion);
-                granja.getInventario().setTotalHuevos(granja.getInventario().getTotalHuevos()+produccion.getCantidadHuevos());
-                System.out.println("Produccion registrada exitosamente");
-            }
-        }
-        return "La gallina no existe";
-    }
-
-    @Override
-    public String actualizar() {
-        return "Opcion no disponible";
-    }
-
-    @Override
-    public void imprimir() {
-        for (int i = 0; i < granja.getGallinas().size(); i++) {
-            Gallina gallina = granja.getGallinas().get(i);
-                System.out.println("Gallina #"+ gallina.getCodigo());
-                for (int j = 0; j < gallina.getProducciones().size(); j++) {
-                    Produccion produccion = gallina.getProducciones().get(j);
-                    System.out.println("Cantidad de huevos:" + produccion.getCantidadHuevos());
-                    System.out.println("Fecha de produccion:" + produccion.getFecha());
-                }
-            System.out.println("-------------------------------------");    
-        }
-    }
+    private GallinaGestion gallinaGestion = new GallinaGestion();
     
+    @Override
+    public String guardar(Produccion nuevo, String codigoGallina) {
+        Gallina gallina = gallinaGestion.buscar(codigoGallina);
+        ArrayList<Produccion> producciones = gallina.getProducciones();
+        producciones.add(nuevo);
+        return VariablesGlobales.datosProducciones.Guardar(producciones, codigoGallina);
+    }
+
+    @Override
+    public ArrayList<Produccion> buscar(String codigoGallina) {
+        return VariablesGlobales.datosProducciones.Cargar(codigoGallina);
+    }    
 }

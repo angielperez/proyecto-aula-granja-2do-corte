@@ -4,12 +4,12 @@ import Interfaces.IReportes;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Inventario implements IReportes{
     
-    private double totalAlimentacionSuministrada;
-    private int totalHuevos;
+    private double totalAlimentacionSuministrada = 0;
+    private int totalHuevos = 0;
 
     public Inventario() {
     }

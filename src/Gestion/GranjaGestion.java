@@ -9,13 +9,16 @@ import Interfaces.IGestion;
 import Modelo.Caja;
 import Modelo.Direccion;
 import Modelo.Granja;
+import Persistencia.DatosGranja;
 import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public class GranjaGestion implements IGestion{
+    
+    DatosGranja datosGranja = new DatosGranja();
     
     @Override
     public String guardar() {

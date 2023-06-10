@@ -2,7 +2,7 @@ package Modelo;
 
 /**
  *
- * @author andresito
+ * @author Angie Perez
  */
 public class Direccion {
     

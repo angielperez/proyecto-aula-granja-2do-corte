@@ -6,7 +6,7 @@ package Interfaces;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public interface IGestionMovimientoCaja {
     String guardar(String tipoMov);

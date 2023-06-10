@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Gallina implements IReportes{
     

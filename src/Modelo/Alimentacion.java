@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public class Alimentacion {
     private double cantidadAlimiento;

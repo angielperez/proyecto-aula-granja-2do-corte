@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author andre
+ * @author Angie Perez
  */
 public class Venta extends Ingreso {
     

@@ -5,43 +5,73 @@
 package Gestion;
 
 import static Gestion.VariablesGlobales.granja;
-import Interfaces.IGestion;
+import Interfaces.IGestionVenta;
 import Modelo.Venta;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
-public class VentaGestion implements IGestion{
-
+public class VentaGestion implements IGestionVenta{
+ArrayList<Venta> lista = VariablesGlobales.datosVentas.Cargar();
+   
     @Override
-    public String guardar() {
-        Scanner teclado = new Scanner(System.in);
-        Venta venta = new Venta();
-        System.out.println("Huevos vendidos:");
-        venta.setHuevosVendidos(teclado.nextInt());
-        System.out.println("Valor del huevo:");
-        venta.setValor(teclado.nextDouble());
-        venta.setFecha(LocalDate.now());
-        int cantidadHuevosActuales = granja.getInventario().getTotalHuevos();
-        granja.getInventario().setTotalHuevos(cantidadHuevosActuales-venta.getHuevosVendidos());
-        double valorActualCaja = granja.getCaja().getTotalCaja();
-        double valorNuevo = venta.getValor()*venta.getHuevosVendidos();
-        granja.getCaja().setTotalCaja(valorActualCaja+valorNuevo);
-        granja.getCaja().getIngresos().add(venta);
-        return "Venta registrada exitosamente";
-    }
-
-    @Override
-    public String actualizar() {
-        return "Opcion no disponible";
-    }
-
-    @Override
-    public void imprimir() {
-        System.out.println("Opcion en proceso de desarrollo");
+    public String guardar(Venta nuevo) {
+        Venta busqueda = buscar(nuevo.getCodigo());
+        if(busqueda != null){
+            return "El codigo ya existe";
+        }
+        lista.add(nuevo);
+        return VariablesGlobales.datosVentas.Guardar(lista);
     }
     
+    @Override
+    public String actualizar(String codigo, Venta nuevo) {
+        int posicionBusqueda = buscarObtenerPosicion(codigo);
+        if(posicionBusqueda == -1){
+            return "La Venta no existe";
+        }else{            
+            lista.set(posicionBusqueda, nuevo);
+            return VariablesGlobales.datosVentas.Guardar(lista);
+        }
+    }
+    @Override
+    public String eliminar(String codigo){
+        int pos = buscarObtenerPosicion(codigo);
+        if(pos == -1){
+            return "La Venta no existe";
+        }else{
+            lista.remove(pos);
+            String respuesta = VariablesGlobales.datosVentas.Guardar(lista);
+            if(respuesta.equals("OK")){
+                return "Eliminada exitosamente";
+            }
+            return respuesta;
+        }
+    }
+    @Override
+    public Venta buscar(String codigo){
+        for (int i = 0; i < lista.size(); i++) {
+            Venta venta = lista.get(i);
+            if(venta.getCodigo().equals(codigo)){
+                return venta;
+            }
+        }
+        return null;
+    }
+    
+    public int buscarObtenerPosicion(String codigo){
+        for (int i = 0; i < lista.size(); i++) {
+            Venta venta = lista.get(i);
+            if(venta.getCodigo().equals(codigo)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
+    
+

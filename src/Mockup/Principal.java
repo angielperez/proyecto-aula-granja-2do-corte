@@ -1,15 +1,20 @@
-package vista;
+package Mockup;
 
 import Gestion.AccionistaGestion;
 import Gestion.AlimentacionGestion;
 import Gestion.DueñoGestion;
 import Gestion.GallinaGestion;
 import Gestion.GranjaGestion;
-import Gestion.MovimientoCajaGestion;
+
 import Gestion.ProduccionGestion;
 import Gestion.ReporteGestion;
+import Gestion.VariablesGlobales;
+import static Gestion.VariablesGlobales.datosGranja;
 import static Gestion.VariablesGlobales.granja;
+import static Gestion.VariablesGlobales.vistaPrincipal;
 import Gestion.VentaGestion;
+import Mockup.Ventanas.VistaLogin;
+import Persistencia.DatosGranja;
 import java.util.Scanner;
 
 /**
@@ -17,12 +22,14 @@ import java.util.Scanner;
  * @author andre
  */
 public class Principal {
-
+    
     public static void main(String[] args) {
-        menuCreacionInicial();
+        //menuCreacionInicial();
+        VariablesGlobales.granja = datosGranja.Cargar();
+        VariablesGlobales.vistaPrincipal.setVisible(true);
     }
     
-    public static void menuCreacionInicial(){
+    /*public static void menuCreacionInicial(){
         
         int opcion;
         boolean creacionInicialRealizada = false;
@@ -73,12 +80,10 @@ public class Principal {
                 case 1:
                     String respuesta1 = gestion.guardar();
                     System.out.println(respuesta1);
-                    teclado.next();
                     break;
                 case 2:
                     String respuesta2 = gestion.actualizar();
                     System.out.println(respuesta2);
-                    teclado.next();
                     break;
                 case 3:
                     gestion.imprimir();
@@ -378,5 +383,5 @@ public class Principal {
                 
             }
         } while ((opcion>0) && (opcion<3));
-    }
+    }*/
 }

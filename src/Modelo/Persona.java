@@ -6,12 +6,12 @@ package Modelo;
 
 /**
  *
- * @author Lenovo
+ * @author Angie Perez
  */
 public abstract class Persona {
     private String nombre;
     private String id;
-    private Direccion direccion;
+    private Direccion direccion = new Direccion();
 
     public Persona() {
     }
